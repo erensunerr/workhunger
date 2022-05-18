@@ -1,80 +1,92 @@
 import React, {useState} from 'react';
-import Todo from './todo'
+import TodoViewer from './todoViewer';
+
+import TimeBlocking from './timeBlocking';
+import Navigation from './navigation'
+
+import {
+  Routes,
+  Route
+} from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
 const TODOS = [
   {
+    id: uuidv4(),
     text: 'read a book',
-    isDone: true
+    isDone: true,
+    children: [
+      {
+        id: uuidv4(),
+        text: 'write a book',
+        isDone: false,
+        children: [],
+      },
+      {
+        id: uuidv4(),
+        text: 'write a book',
+        isDone: false,
+        children: [],
+      }
+    ]
   },
   {
+    id: uuidv4(),
     text: 'write a book',
     isDone: false,
+    children: [
+
+    ]
   }
 ]
 
-const emptyTodo = {text: '', isDone: false};
-export default function App() {
-  const [todos, setTodos] = useState(TODOS);
-  const [currentTodo, setCurrentTodo] = useState(emptyTodo);
-
-  return (
-    <section class="w-10/12 border-solid border-2 border-gray-800 mx-auto py-24 px-3 my-6">
-      <h2 class="text-6xl font-bold mb-16">Tasks List</h2>
-
-      {
-        todos.map(
-          (todo, i) => <Todo setDone={
-            () => setTodos(
-              (todos) => todos.map(
-                (todo, j) => j == i ? {...todo, isDone: !todo.isDone} : todo
-              )
-            )
-        } {...todo} />
-        )
-      }
-
-      {
-      // <div class="border-solid border-2 border-gray-800 my-2 py-2 px-4 flex items-center">
-      //   <input type="checkbox" class="" checked />
-      //   <p class="ml-2 line-through">read a book</p>
-      // </div>
-      //
-      //
-      // <div class="border-solid border-2 border-gray-800 my-2 py-2 px-4 flex items-center justify-between">
-      //   <div class="flex items-center">
-      //     <input type="checkbox" class="" />
-      //     <p class="ml-2">write a book</p>
-      //   </div>
-      // </div>
-      //
-      // <div class="border-solid border-2 border-gray-800 my-2 py-2 px-4 flex items-center ml-4">
-      //   <input type="checkbox" class=""/>
-      //   <p class="ml-2">write a sentence</p>
-      // </div>
+const SCHEDULED = [
+  {
+    period: 1,
+    task: {
+      id: uuidv4(),
+      text: 'write a book about paleantology',
+      isDone: false,
     }
+  },
+  {
+    period: 35,
+    task: {
+      id: uuidv4(),
+      text: 'read a book',
+      isDone: false,
+    }
+  },
+]
 
-      <div class="border-solid border-2 border-gray-800 my-2 py-2 px-4 flex items-center justify-between">
-        <input type="text" class="color-gray-500 focus:outline-0" placeholder="I'll do x" value={currentTodo.text} onChange={
-          // update the current todo with what's written in the box
-          (e) => {
-            setCurrentTodo(
-              (todo) => ({...todo, text: e.target.value})
-            );
-          }
-        }
-        onKeyPress={
-          // commit the todo when the user presses enter
-          (e) => {
-            if (e.key == "Enter") {
-              setTodos(
-                (todos) => [...todos, currentTodo]
-              );
-              setCurrentTodo(emptyTodo);
-          }
-          }
-        }
-         />
-      </div>
 
-    </section>
+const links = [
+  {
+    text: "Set Goals",
+    link: '/goals',
+  },
+  {
+    text: "Time Block",
+    link: '/timeblocking'
+  },
+]
+
+
+
+
+
+
+
+// shell
+export default function App() {
+  const [scheduled, setScheduled] = useState(SCHEDULED);
+  return (
+    <>
+    <Navigation links={links}/>
+    <Routes>
+      <Route path="/goals" element={<TodoViewer todos={TODOS} setScheduled={setScheduled}/>} />
+      <Route path="/timeblocking" element={<TimeBlocking scheduled={scheduled}/>} />
+    </Routes>
+    </>
   )
 }
