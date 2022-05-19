@@ -15,7 +15,7 @@ import TimeBlocking from './timeBlocking';
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 
-
+console.log('rerender index')
 root.render(
   <React.StrictMode>
     <BrowserRouter>

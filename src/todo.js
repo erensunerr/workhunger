@@ -2,25 +2,27 @@ import React, {useState,} from 'react';
 import {TrashIcon, PencilIcon, CheckIcon, ClockIcon} from "@heroicons/react/solid";
 
 function schedule(setScheduled, task) {
-  // TODO: code this
-  var di=0, i=1;
-  while (di == 0) {
-    i++;
-    
-  }
-
-
   setScheduled(
-    (p) => [...p, {
-      period: period,
-      task: task
-    }]
+    (p) => {
+      var period = 0;
+      p.forEach((item, i) => {
+        (period === item.period) && period++;
+
+      });
+
+
+
+      return [...p, {
+        period: period,
+        task: task
+      }]
+    }
   )
 }
 
 export default function Todo(props) {
   const [isEditing, setIsEditing] = useState(false);
-
+  console.log(props.isScheduled)
   return (
     <div className=" flex items-center justify-between w-full max-w-80">
       <div className="flex items-center grow shrink min-w-0">
@@ -83,9 +85,11 @@ export default function Todo(props) {
           ))
         }/>
 
-        <ClockIcon className="h-5 w-5 text-gray-800 hover:gray-600 cursor-pointer" onClick={
+        {
+          !props.isScheduled &&
+          <ClockIcon className="h-5 w-5 text-gray-800 hover:gray-600 cursor-pointer" onClick={
             () => schedule(props.setScheduled, props.task)
-        }/>
+        }/>}
 
 
       </div>

@@ -9,29 +9,19 @@ import {
   Route
 } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import useLocalStorage from './useLocalStorage'
+
 
 const TODOS = [
   {
-    id: uuidv4(),
+    id: "xxa10",
     text: 'read a book',
     isDone: true,
     children: [
-      {
-        id: uuidv4(),
-        text: 'write a book',
-        isDone: false,
-        children: [],
-      },
-      {
-        id: uuidv4(),
-        text: 'write a book',
-        isDone: false,
-        children: [],
-      }
     ]
   },
   {
-    id: uuidv4(),
+    id: "101a",
     text: 'write a book',
     isDone: false,
     children: [
@@ -43,19 +33,11 @@ const TODOS = [
 const SCHEDULED = [
   {
     period: 1,
-    task: {
-      id: uuidv4(),
-      text: 'write a book about paleantology',
-      isDone: false,
-    }
+    task: TODOS[0]
   },
   {
     period: 35,
-    task: {
-      id: uuidv4(),
-      text: 'read a book',
-      isDone: false,
-    }
+    task: TODOS[1]
   },
 ]
 
@@ -72,19 +54,19 @@ const links = [
 ]
 
 
-
-
-
-
-
 // shell
 export default function App() {
-  const [scheduled, setScheduled] = useState(SCHEDULED);
+  const [scheduled, setScheduled] = useLocalStorage("scheduled", SCHEDULED);
+  const [todos, setTodos] = useLocalStorage("todos", TODOS);
+
+  console.log('scheduled:', scheduled)
+  console.log('todos:', todos)
+
   return (
     <>
     <Navigation links={links}/>
     <Routes>
-      <Route path="/goals" element={<TodoViewer todos={TODOS} setScheduled={setScheduled}/>} />
+      <Route path="/goals" element={<TodoViewer todos={todos} setTodos={setTodos} setScheduled={setScheduled} scheduled={scheduled}/>} />
       <Route path="/timeblocking" element={<TimeBlocking scheduled={scheduled}/>} />
     </Routes>
     </>

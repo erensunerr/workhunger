@@ -7,7 +7,7 @@ const emptyTodo = {text: '', isDone: false};
 
 
 export default function TodoViewer(props) {
-  const [todos, setTodos] = useState(props.todos);
+  const {todos, setTodos} = props;
   const [currentTodo, setCurrentTodo] = useState(emptyTodo);
 
   return (
@@ -16,7 +16,12 @@ export default function TodoViewer(props) {
 
       {
         todos.map(
-          (todo, i) => <Todo setTodos={setTodos} task={todo} key={todo.id} setScheduled={props.setScheduled}/>
+          (todo, i) => <Todo setTodos={setTodos} task={todo} key={todo.id} setScheduled={props.setScheduled} isScheduled={
+            // one task can only be scheduled for one period for now
+            props.scheduled.filter(
+              (s) => s.task.id == todo.id
+            ).length > 0
+          }/>
         )
       }
 
