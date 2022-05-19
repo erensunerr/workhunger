@@ -80,9 +80,16 @@ export default function Todo(props) {
       }
 
         <TrashIcon className="h-5 w-5 text-gray-800 cursor-pointer" onClick={
-          () => props.setTodos((todos) => todos.filter(
-            (item) => !(item.id == props.task.id)
-          ))
+          () => {
+            // remove the item from todos
+            props.setTodos((todos) => todos.filter(
+              (item) => !(item.id == props.task.id)
+            ))
+            // remove the task from scheduled
+            props.setScheduled((p) => p.filter(
+              (i) => !(i.task.id == props.task.id)
+            ))
+          }
         }/>
 
         {

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {MenuIcon} from '@heroicons/react/solid';
 
 export default function Navigation({links}) {
+  // find some way of detecting if device is mobile
   const [isExpanded, setIsExpanded] = useState(false);
   return (
     <nav className="flex relative bg-gray-800 py-4 px-6 justify-end md:justify-center">

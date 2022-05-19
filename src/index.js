@@ -2,6 +2,7 @@ import * as ReactDOM from 'react-dom/client';
 import React from 'react';
 import App from './app';
 import './index.css';
+import './firebase_init';
 
 import { BrowserRouter } from 'react-router-dom';
 
