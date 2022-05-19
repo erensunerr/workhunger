@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import TodoViewer from './todoViewer';
+import SetGoals from './pages/setGoals';
 
-import TimeBlocking from './timeBlocking';
+import TimeBlocking from './pages/timeBlocking';
 import Navigation from './navigation'
 
 import {
@@ -66,8 +66,19 @@ export default function App() {
     <>
     <Navigation links={links}/>
     <Routes>
-      <Route path="/goals" element={<TodoViewer todos={todos} setTodos={setTodos} setScheduled={setScheduled} scheduled={scheduled}/>} />
-      <Route path="/timeblocking" element={<TimeBlocking scheduled={scheduled}/>} />
+      <Route path="/goals" element={
+        <SetGoals
+          todos={todos}
+          setTodos={setTodos}
+          setScheduled={setScheduled}
+          scheduled={scheduled}
+          />
+      } />
+      <Route path="/timeblocking" element={
+        <TimeBlocking
+          scheduled={scheduled}
+          />
+      } />
     </Routes>
     </>
   )

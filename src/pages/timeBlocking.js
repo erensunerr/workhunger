@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 
 const days = [
   "Times",
@@ -28,7 +27,7 @@ export default function TimeBlocking(props) {
 
   console.log(schedule)
   return (
-    <section className="w-10/12 mx-auto space-y-6 py-24 px-3 my-6">
+    <section className="mx-auto space-y-6 py-24 px-8 my-6 w-min max-w-full">
       <h2 className="text-6xl font-bold text-gray-800">
         Time Blocking
       </h2>

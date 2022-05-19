@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
-import Todo from './todo'
+import Todo from '../todo'
 import { v4 as uuidv4 } from 'uuid';
 
 
 const emptyTodo = {text: '', isDone: false};
 
 
-export default function TodoViewer(props) {
+export default function SetGoals(props) {
   const {todos, setTodos} = props;
   const [currentTodo, setCurrentTodo] = useState(emptyTodo);
 
   return (
     <section className="w-10/12 lg:w-6/12 xl:w-4/12 mx-auto py-24 px-3 my-6">
-      <h2 className="text-6xl font-bold mb-16 text-gray-800">Goals</h2>
+      <h2 className="text-6xl font-bold mb-16 text-gray-800">Set Goals</h2>
 
       {
         todos.map(
