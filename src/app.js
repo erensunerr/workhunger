@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
-import SetGoals from './pages/setGoals';
 
+import SetGoals from './pages/setGoals';
 import TimeBlocking from './pages/timeBlocking';
+import Login from './login'
+
 import Navigation from './navigation'
 
 import {
@@ -50,7 +52,7 @@ const links = [
   {
     text: "Time Block",
     link: '/timeblocking'
-  },
+  }
 ]
 
 
@@ -64,7 +66,11 @@ export default function App() {
 
   return (
     <>
-    <Navigation links={links}/>
+    <Navigation links={links} elems={[
+        <Login
+          className="text-xl py-1.5 px-3 rounded  bg-gray-200 text-gray-800 w-min my-3"
+        />,
+      ]}/>
     <Routes>
       <Route path="/goals" element={
         <SetGoals

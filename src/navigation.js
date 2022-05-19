@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {MenuIcon} from '@heroicons/react/solid';
 
-export default function Navigation({links}) {
+export default function Navigation({links, elems}) {
   // find some way of detecting if device is mobile
   const [isExpanded, setIsExpanded] = useState(false);
   return (
@@ -11,6 +11,9 @@ export default function Navigation({links}) {
           links.map(
            (link) => <a href={link.link} className="text-xl text-gray-100 py-1.5 mx-1 md:hover:text-gray-300">{link.text}</a>
          )
+       }
+       {
+         elems
        }
       </div>
 
@@ -26,8 +29,11 @@ export default function Navigation({links}) {
             {
               links.map(
                (link) => <a href={link.link} className="text-xl text-gray-100 py-1.5">- {link.text}</a>
-             )
-           }
+              )
+            }
+            {
+              elems
+            }
              </div>
 
          }
