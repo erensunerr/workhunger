@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 
 import SetGoals from './pages/setGoals';
 import TimeBlocking from './pages/timeBlocking';
-import Login from './login'
+import Landing from './pages/landing'
 
+import Login from './login'
 import Navigation from './navigation'
 
 import {
@@ -66,25 +67,36 @@ export default function App() {
 
   return (
     <>
-    <Navigation links={links} elems={[
-        <Login
-          className="text-xl py-1.5 px-3 rounded  bg-gray-200 text-gray-800 w-min my-3"
-        />,
-      ]}/>
+{
+      // <Navigation links={links} elems={[
+      //   <Login
+      //     className="text-xl py-1.5 px-3 rounded bg-gray-200 text-gray-800 w-min"
+      //   />,
+      // ]}/>
+
+    }
     <Routes>
-      <Route path="/goals" element={
-        <SetGoals
-          todos={todos}
-          setTodos={setTodos}
-          setScheduled={setScheduled}
-          scheduled={scheduled}
-          />
+{
+      //   <Route path="/goals" element={
+      //   <SetGoals
+      //     todos={todos}
+      //     setTodos={setTodos}
+      //     setScheduled={setScheduled}
+      //     scheduled={scheduled}
+      //     />
+      // } />
+    }
+      <Route path="/" element={
+        <Landing />
       } />
-      <Route path="/timeblocking" element={
-        <TimeBlocking
-          scheduled={scheduled}
-          />
-      } />
+
+      {
+      //   <Route path="/timeblocking" element={
+      //   <TimeBlocking
+      //     scheduled={scheduled}
+      //     />
+      // } />
+    }
     </Routes>
     </>
   )
