@@ -59,11 +59,6 @@ const links = [
 
 // shell
 export default function App() {
-  const [scheduled, setScheduled] = useLocalStorage("scheduled", SCHEDULED);
-  const [todos, setTodos] = useLocalStorage("todos", TODOS);
-
-  console.log('scheduled:', scheduled)
-  console.log('todos:', todos)
 
   return (
     <>
