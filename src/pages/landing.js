@@ -181,6 +181,7 @@ export default function Landing(){
                       createUserWithEmailAndPassword(auth, email, pass).then(
                         (userCredential) => {
                           const user = userCredential.user;
+                          logEvent(analytics, 'sign_up');
                         }).catch(
                           (error) => {
                             console.log(error.message)
