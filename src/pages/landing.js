@@ -10,12 +10,19 @@ import { getAuth, signInWithPopup, createUserWithEmailAndPassword } from "fireba
 import { GoogleAuthProvider } from "firebase/auth";
 import { getAnalytics, logEvent } from "firebase/analytics";
 
-import {app} from '../firebase_init'
+
 import FeatureSection from '../featureSection'
+import LoginForm from '../loginForm'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import useUser from '../useUser'
 
 
-const title = "text-6xl lg:text-8xl font-bold inline "
-const provider = new GoogleAuthProvider();
+const title = "text-5xl lg:text-6xl font-bold inline "
+
+
+
+
 
 // Feedback:
 // - get feedback from the reddit subreddit
@@ -24,50 +31,22 @@ const provider = new GoogleAuthProvider();
 // -> repurposing
 // -> authority
 
+
+
+
+
 export default function Landing(){
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState();
+
   const formRef = useRef(null);
-
   var navigate = useNavigate();
-  // initialize google analytics.
-  const analytics = getAnalytics();
+  const user = useUser();
 
-
-  // Initialize the FirebaseUI Widget using Firebase.
-  const auth = getAuth(app);
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // ...
-
-        setIsLoggedIn(auth.currentUser != null)
-        logEvent(analytics, 'sign_up');
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-
-  })
-
-};
 
   return (
     <div className="w-full bg-[#fff]">
 
       {
-        auth.currentUser &&
+        (user != null) &&
         <section className="bg-gray-900 text-gray-100 text-xl font-bold py-12 w-full">
           <div className="w-10/12 lg:w-8/12 mx-auto">
             <h2 className="">Hey! Thanks for signing up, I'll be in touch shortly :)</h2>
@@ -75,11 +54,22 @@ export default function Landing(){
         </section>
       }
 
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+      />
 
       <section className="w-10/12 lg:w-8/12 mx-auto flex flex-wrap pt-24">
 
 
-        <h1 className={title + "text-gray-900"}>Work for longer without getting bored.</h1>
+        <h1 className={title + "text-gray-900"}>Work without getting bored.</h1>
         <h1 className={title + "text-red-500 mt-8 text-right"}>Let's make work more rewarding than anything else.</h1>
 
         {
@@ -138,63 +128,8 @@ export default function Landing(){
         />
 
           <div className="w-full md:w-6/12 mx-auto flex flex-wrap mt-16" ref={formRef}>
-            <h2 className="text-5xl font-bold text-gray-900">Sign Up</h2>
 
-
-            <form action="" className="w-full flex flex-wrap">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="border-solid border-2 text-xl w-full mt-12 p-2 py-1"
-                placeholder="Email goes here..."
-                value={email}
-                onChange={
-                  (e) => setEmail(e.target.value)
-                }
-                />
-              <input
-                type="password"
-                name="password"
-                id="userPassword"
-                className="border-solid border-2 text-xl w-full mt-2 p-2 py-1"
-                placeholder="Password goes here..."
-                autoComplete="new-password"
-                value={pass}
-                onChange={
-                  (e) => setPass(e.target.value)
-                }
-                />
-
-                <GoogleButton onClick={
-                  () => signInWithGoogle()
-                } className="mt-4"/>
-
-
-                <input
-                  type="submit"
-                  value="Sign Up"
-                  className="py-4 px-6 bg-gray-900 text-gray-100 rounded-lg font-bold uppercase tracking-wide ml-auto mt-4 cursor-pointer block"
-                  onClick={
-                    (e) => {
-                      e.preventDefault()
-                      createUserWithEmailAndPassword(auth, email, pass).then(
-                        (userCredential) => {
-                          const user = userCredential.user;
-                          logEvent(analytics, 'sign_up');
-                        }).catch(
-                          (error) => {
-                            console.log(error.message)
-                          }
-                        )
-
-                    }
-                  }
-                />
-            </form>
-
-
-
+            <LoginForm />
 
           </div>
 
